@@ -1,5 +1,5 @@
 class Car {
-  constructor(x, y, width, height, controlType, maxSpeed = 3) {
+  constructor(x, y, width, height, controlType = "DUMMY", maxSpeed = 2) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -12,12 +12,13 @@ class Car {
     this.angle = 0;
     this.damaged = false;
 
-    this.useBrain = controlType == "AI";
+    this.useBrain = controlType === "AI";
 
-    if (controlType != "DUMMY") {
+    if (controlType !== "DUMMY") {
       this.sensor = new Sensor(this);
-      this.brain = new NeuralNetwork([this.sensor.rayCount, 6, 6, 4]);
+      this.brain = new NeuralNetwork([this.sensor.rayCount, 6, 4]);
     }
+
     this.controls = new Controls(controlType);
   }
 
@@ -27,11 +28,14 @@ class Car {
       this.polygon = this.#createPolygon();
       this.damaged = this.#assessDamage(roadBorders, traffic);
     }
+
     if (this.sensor) {
       this.sensor.update(roadBorders, traffic);
+
       const offsets = this.sensor.readings.map((reading) =>
-        reading == null ? 0 : 1 - reading.offset
+        reading === null ? 0 : 1 - reading.offset
       );
+
       const outputs = NeuralNetwork.feedForward(offsets, this.brain);
 
       if (this.useBrain) {

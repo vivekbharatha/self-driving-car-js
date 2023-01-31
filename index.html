@@ -4,12 +4,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="information">
+    <p><b>Distance travelled: </b><span id="distance">0</span></p>
+    <p><b>Number of AI cars: </b><span id="noOfCars">0</span></p>
+  </div>
+  <div class="ground">
     <canvas id="carCanvas"></canvas>
     <div id="verticalButtons">
         <button onclick="save()">💾</button>
         <button onclick="discard()">🗑️</button>
     </div>
     <canvas id="networkCanvas"></canvas>
+  </div>
+
+    <script src="constants.js"></script>
     <script src="visualizer.js"></script>
     <script src="network.js"></script>
     <script src="sensor.js"></script>

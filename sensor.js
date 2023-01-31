@@ -27,6 +27,7 @@ class Sensor {
         roadBorders[v][0],
         roadBorders[v][1]
       );
+
       if (touch) {
         touches.push(touch);
       }
@@ -41,6 +42,7 @@ class Sensor {
           poly[s],
           poly[(s + 1) % poly.length]
         );
+
         if (value) {
           touches.push(value);
         }
@@ -52,7 +54,7 @@ class Sensor {
     } else {
       const offsets = touches.map((e) => e.offset);
       const minOffset = Math.min(...offsets);
-      return touches.find((e) => e.offset == minOffset);
+      return touches.find((e) => e.offset === minOffset);
     }
   }
 
@@ -71,6 +73,7 @@ class Sensor {
         x: this.car.x - Math.sin(rayAngle) * this.rayLength,
         y: this.car.y - Math.cos(rayAngle) * this.rayLength,
       };
+
       this.rays.push([start, end]);
     }
   }

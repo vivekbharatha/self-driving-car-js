@@ -1,7 +1,20 @@
 body {
   margin: 0;
   background: darkgray;
+  height: 100vh;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.information {
+  display: flex;
+  flex-direction: column;
+}
+
+.ground {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,13 +32,16 @@ button {
   margin: 2px;
   cursor: pointer;
 }
+
 button:hover {
   background: blue;
 }
 
 #networkCanvas {
-  background: black;
+  border: 2px solid #333;
 }
+
 #carCanvas {
+  border: 2px solid #333;
   background: lightgray;
 }
