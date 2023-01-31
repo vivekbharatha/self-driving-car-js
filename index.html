@@ -7,12 +7,14 @@
   <div class="information">
     <p><b>Distance travelled: </b><span id="distance">0</span></p>
     <p><b>Number of AI cars: </b><span id="noOfCars">0</span></p>
+    <p><b>From saved model: </b><span id="fromSavedModel">False</span></p>
   </div>
   <div class="ground">
     <canvas id="carCanvas"></canvas>
     <div id="verticalButtons">
         <button onclick="save()">💾</button>
         <button onclick="discard()">🗑️</button>
+        <button onclick="deleteBestCar()">🗑️BC</button>
     </div>
     <canvas id="networkCanvas"></canvas>
   </div>

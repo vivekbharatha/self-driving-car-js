@@ -1,5 +1,6 @@
 const distanceId = document.getElementById("distance");
 const noOfCarsId = document.getElementById("noOfCars");
+const fromSavedModel = document.getElementById("fromSavedModel");
 
 const carCanvas = document.getElementById("carCanvas");
 carCanvas.width = CANVAS_WIDTH;
@@ -11,13 +12,15 @@ const networkCtx = networkCanvas.getContext("2d");
 
 const road = new Road(carCanvas.width / 2, carCanvas.width * 0.9);
 
-const N = 2000;
+const N = 1000;
 
 let cars = generateCars(N);
 
 let bestCar = cars[0];
 
 if (localStorage.getItem("bestBrain")) {
+  fromSavedModel.innerHTML = "True";
+
   for (let v = 0; v < cars.length; v++) {
     cars[v].brain = JSON.parse(localStorage.getItem("bestBrain"));
     if (v !== 0) {
@@ -65,6 +68,10 @@ function discard() {
   localStorage.removeItem("bestBrain");
 }
 
+function deleteBestCar() {
+  cars = cars.filter((car) => car.id !== bestCar.id);
+}
+
 function generateCars(N) {
   const cars = [];
   for (let v = 1; v <= N; v++) {
@@ -82,9 +89,13 @@ function animate(time) {
     cars[v].update(road.borders, traffic);
   }
 
-  cars = cars.filter((car) => !car.damaged);
+  cars = cars.filter((car) => {
+    return !car.damaged && car.y - bestCar.y < 200;
+  });
 
-  bestCar = cars.find((car) => car.y == Math.min(...cars.map((car) => car.y)));
+  bestCar =
+    cars.find((car) => car.y == Math.min(...cars.map((car) => car.y))) ||
+    bestCar;
 
   carCanvas.height = CANVAS_HEIGHT;
   networkCanvas.height = CANVAS_HEIGHT;

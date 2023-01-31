@@ -1,5 +1,6 @@
 class Car {
   constructor(x, y, width, height, controlType = "DUMMY", maxSpeed = 2) {
+    this.id = Date.now().toString(36) + Math.random().toString(36).substr(2);
     this.x = x;
     this.y = y;
     this.width = width;
